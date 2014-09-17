@@ -1,0 +1,16 @@
+[
+{
+  "modid": "HorseCraft",
+  "name": "HorseCraft",
+  "description": "Making horses useful in modded minecraft.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["digitalseraphim"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
