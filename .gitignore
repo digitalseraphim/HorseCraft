@@ -1,3 +1,6 @@
 .gradle
 eclipse
 bin
+.settings
+.project
+.classpath
