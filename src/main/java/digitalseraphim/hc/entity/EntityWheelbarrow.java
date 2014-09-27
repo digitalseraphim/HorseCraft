@@ -67,5 +67,9 @@ public class EntityWheelbarrow extends Entity {
         return boundingBox;
     }
     
-
+    @Override
+    public void applyEntityCollision(Entity p_70108_1_) {
+    	// TODO Auto-generated method stub
+    	super.applyEntityCollision(p_70108_1_);
+    }
 }

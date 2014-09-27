@@ -1,11 +1,8 @@
 package digitalseraphim.hc;
 
-import java.util.Map;
-
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
-import codechicken.lib.render.CCModel;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -19,6 +16,7 @@ import digitalseraphim.hc.block.ModBlocks;
 import digitalseraphim.hc.core.proxy.CommonProxy;
 import digitalseraphim.hc.core.util.Strings;
 import digitalseraphim.hc.creativetab.CreativeTabHC;
+import digitalseraphim.hc.entity.EntityHCHorse;
 import digitalseraphim.hc.worldgen.village.ComponentStable;
 import digitalseraphim.hc.worldgen.village.VillageStableHandler;
 
@@ -46,7 +44,8 @@ public class HorseCraft {
 		proxy.initTileEntities();
 		proxy.initRenderingAndTextures();
 		proxy.initEntities();
-		proxy.initItems();	
+		proxy.initItems();
+		proxy.replaceCreatureSpawn(EntityHorse.class, EntityHCHorse.class);
 	}
 
 	@EventHandler
