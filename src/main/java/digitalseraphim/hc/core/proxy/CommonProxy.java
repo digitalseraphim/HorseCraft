@@ -2,9 +2,12 @@ package digitalseraphim.hc.core.proxy;
 
 import java.util.List;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.MinecraftForge;
@@ -14,9 +17,12 @@ import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import digitalseraphim.hc.HorseCraft;
 import digitalseraphim.hc.block.ModBlocks;
+import digitalseraphim.hc.client.gui.GUI_IDS;
+import digitalseraphim.hc.client.gui.GuiStethoscope;
 import digitalseraphim.hc.entity.EntityHCHorse;
 import digitalseraphim.hc.entity.EntityHorseHarness;
 import digitalseraphim.hc.entity.EntityWheelbarrow;
+import digitalseraphim.hc.inventory.ContainerStethoscopeInventory;
 import digitalseraphim.hc.item.ItemHorseHarness;
 import digitalseraphim.hc.item.ItemStethoscope;
 import digitalseraphim.hc.item.ItemWheelbarrow;
@@ -24,16 +30,40 @@ import digitalseraphim.hc.tileEntity.TEHorseWalker;
 import digitalseraphim.hc.tileEntity.TESpokePath;
 
 public class CommonProxy implements IGuiHandler {
-
+	public ItemStethoscope stethoscope;
+	public ItemHorseHarness horseHarness;
+	public ItemWheelbarrow wheelBarrow;
+	
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world,
 			int x, int y, int z) {
+		switch (ID) {
+
+		case GUI_IDS.STETHOSCOPE_ID:
+			Entity e = world.getEntityByID(x);
+
+			if (e instanceof EntityLivingBase) {
+				return new ContainerStethoscopeInventory(player, (EntityLivingBase) e);
+			}
+		}
+
 		return null;
 	}
 
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world,
 			int x, int y, int z) {
+
+		switch (ID) {
+
+		case GUI_IDS.STETHOSCOPE_ID:
+			Entity e = world.getEntityByID(x);
+
+			if (e instanceof EntityLivingBase) {
+				return new GuiStethoscope(player, (EntityLivingBase) e);
+			}
+		}
+
 		return null;
 	}
 
@@ -54,10 +84,10 @@ public class CommonProxy implements IGuiHandler {
 	}
 
 	public void initItems() {
-		GameRegistry.registerItem(new ItemHorseHarness(),
+		GameRegistry.registerItem(horseHarness = new ItemHorseHarness(),
 				"hc.item.horseHarness");
-		GameRegistry.registerItem(new ItemStethoscope(), "hc.item.stethoscope");
-		GameRegistry.registerItem(new ItemWheelbarrow(), "hc.item.wheelbarrow");
+		GameRegistry.registerItem(stethoscope = new ItemStethoscope(), "hc.item.stethoscope");
+		GameRegistry.registerItem(wheelBarrow = new ItemWheelbarrow(), "hc.item.wheelbarrow");
 	}
 
 	public void initRenderingAndTextures() {
