@@ -15,7 +15,13 @@ buildscript {
     }
 }
 
+apply plugin: 'java'
+apply plugin: 'forge'
+//apply plugin: 'curseforge'
+//apply plugin: 'maven'
+
 repositories {
+/*
     mavenCentral()
     maven {
         name = "forge"
@@ -25,6 +31,7 @@ repositories {
         name = "sonatype"
         url = "https://oss.sonatype.org/content/repositories/snapshots/"
     }
+*/
     maven {
         name 'CB Maven FS'
         url "http://chickenbones.net/maven/"
@@ -39,8 +46,6 @@ repositories {
     }
 }
 
-apply plugin: 'forge'
-
 ext.configFile = file "build.properties"
 
 configFile.withReader {
@@ -50,18 +55,18 @@ configFile.withReader {
     project.ext.config = new ConfigSlurper().parse prop
 }
 
+dependencies {
+    compile "codechicken:CodeChickenLib:${config.minecraft_version}-${config.CCLIB_version}:dev"
+}
+
 version = "${config.minecraft_version}-${config.mod_version}"
-group= "digitalseraphim.horsecraft" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group= "digitalseraphim.horsecraft" 
 archivesBaseName = "HorseCraft"
 
 
 minecraft {
     version = "${config.minecraft_version}-${config.forge_version}"
     runDir = "eclipse/assets"
-}
-
-dependencies {
-    compile "codechicken:CodeChickenLib:${config.minecraft_version}-${config.CCLIB_version}:dev"
 }
 
 processResources
