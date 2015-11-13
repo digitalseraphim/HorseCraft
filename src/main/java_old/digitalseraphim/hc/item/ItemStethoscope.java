@@ -12,6 +12,7 @@ public class ItemStethoscope extends Item {
 	public ItemStethoscope() {
 		this.maxStackSize = 8;
 		this.setCreativeTab(HorseCraft.tabsHC);
+		this.setTextureName("hc:stethoscope");
 		this.setUnlocalizedName("stethoscope");
 	}
 

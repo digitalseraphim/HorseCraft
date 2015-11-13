@@ -1,24 +1,54 @@
 package digitalseraphim.hc.client.gui;
 
-import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
 
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
+
+import com.sun.xml.internal.stream.Entity;
+
+import digitalseraphim.hc.HorseCraft;
+import digitalseraphim.hc.inventory.ContainerStethoscopeInventory;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiOptionButton;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.IProgressMeter;
+import net.minecraft.client.gui.achievement.GuiAchievements;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.gui.inventory.GuiInventory;
+import net.minecraft.client.gui.inventory.GuiScreenHorseInventory;
+import net.minecraft.client.renderer.EntityRenderer;
+import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.play.client.C16PacketClientStatus;
+import net.minecraft.stats.Achievement;
+import net.minecraft.stats.AchievementList;
+import net.minecraft.stats.StatFileWriter;
+import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.IIcon;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.Teleporter;
 import net.minecraft.world.World;
-
-import org.lwjgl.opengl.GL11;
-
-import digitalseraphim.hc.HorseCraft;
-import digitalseraphim.hc.inventory.ContainerStethoscopeInventory;
+import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.common.AchievementPage;
 
 public class GuiStethoscope extends GuiContainer {
 	protected static final ResourceLocation invBackground = new ResourceLocation(
@@ -51,11 +81,10 @@ public class GuiStethoscope extends GuiContainer {
 		this.count = 1000;
 	}
 
-	
 	@Override
-	protected void actionPerformed(GuiButton button) throws IOException {
-		System.out.println("actionPerformed - " + button.id);
-		super.actionPerformed(button);
+	protected void actionPerformed(GuiButton p_146284_1_) {
+		System.out.println("actionPerformed - " + p_146284_1_.id);
+		super.actionPerformed(p_146284_1_);
 	}
 
 	@Override
@@ -98,20 +127,19 @@ public class GuiStethoscope extends GuiContainer {
 
 	protected void drawGuiContainerBackgroundLayer(float p_146976_1_,
 			int mouseX, int mouseY) {
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderHelper.enableGUIStandardItemLighting();
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		this.mc.getTextureManager().bindTexture(invBackground);
-		drawModalRectWithCustomSizedTexture(guiLeft, guiTop, 0, 0, MAIN_WIDTH, this.ySize, 512, 512);
+		func_146110_a(guiLeft, guiTop, 0, 0, MAIN_WIDTH, this.ySize, 512, 512);
 
-		drawModalRectWithCustomSizedTexture(guiLeft + MAIN_WIDTH - TAB_OVERLAP, guiTop + 28,
+		func_146110_a(guiLeft + MAIN_WIDTH - TAB_OVERLAP, guiTop + 28,
 				TAB_WIDTH * selectedTab, FULL_HEIGHT, TAB_WIDTH,
 				FULL_HEIGHT - 28, 512, 512);
 
 		for (int i = 0; i < numTabs; i++) {
 			boolean f = i == selectedTab;
-			drawModalRectWithCustomSizedTexture(guiLeft + MAIN_WIDTH - TAB_OVERLAP + (28 * i),
-					guiTop, ((MAIN_WIDTH + (28 * i))),  (f ? 30
+			func_146110_a(guiLeft + MAIN_WIDTH - TAB_OVERLAP + (28 * i),
+					guiTop, (float) ((MAIN_WIDTH + (28 * i))), (float) (f ? 30
 							: 0), 28, (f ? 32 : 30), 512, 512);
 		}
 
@@ -136,11 +164,12 @@ public class GuiStethoscope extends GuiContainer {
 				break;
 			}
 
-			itemRender.renderItemAndEffectIntoGUI(itemstack, guiLeft
+			itemRender.renderItemAndEffectIntoGUI(this.fontRendererObj,
+					this.mc.getTextureManager(), itemstack, guiLeft
 							+ MAIN_WIDTH - TAB_OVERLAP + (28 * i) + 6,
 					guiTop + 7);
 			itemRender.renderItemOverlayIntoGUI(this.fontRendererObj,
-					itemstack, guiLeft
+					this.mc.getTextureManager(), itemstack, guiLeft
 							+ MAIN_WIDTH - TAB_OVERLAP + (28 * i) + 6,
 					guiTop + 7, str);
 		}
@@ -162,8 +191,8 @@ public class GuiStethoscope extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-//		int left = MAIN_WIDTH - TAB_OVERLAP + 7;
-//		int top = 29 + 6;
+		int left = MAIN_WIDTH - TAB_OVERLAP + 7;
+		int top = 29 + 6;
 
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 
@@ -179,7 +208,6 @@ public class GuiStethoscope extends GuiContainer {
 			break;
 		case 2:
 			break;
-			/*
 		case 3:
 			Tessellator t = Tessellator.instance;
 			int offsetX = MAIN_WIDTH - TAB_OVERLAP + (TAB_WIDTH / 2);
@@ -217,7 +245,6 @@ public class GuiStethoscope extends GuiContainer {
 			t.draw();
 			t.addTranslation(-offsetX, -offsetY, 0);
 			break;
-			*/
 		}
 	}
 
@@ -240,10 +267,9 @@ public class GuiStethoscope extends GuiContainer {
 	// }
 
 	@Override
-	protected void mouseClicked(int mouseX, int mouseY, int mouseButton)
-			throws IOException {
+	protected void mouseMovedOrUp(int mouseX, int mouseY, int which) {
 		int a = relX - (MAIN_WIDTH - TAB_OVERLAP);
-		if (mouseButton == 0 && a > 0 && a < 28 * numTabs && relY > 0 && relY < 30) {
+		if (which == 0 && a > 0 && a < 28 * numTabs && relY > 0 && relY < 30) {
 
 			for (int i = 0; i < numTabs; i++) {
 				if (a < 28 * (i + 1)) {
@@ -253,7 +279,7 @@ public class GuiStethoscope extends GuiContainer {
 			}
 		}
 
-		super.mouseClicked(mouseX, mouseY, mouseButton);
+		super.mouseMovedOrUp(mouseX, mouseY, which);
 	}
 
 }
