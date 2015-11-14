@@ -7,14 +7,14 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import digitalseraphim.hc.client.gui.GUI_IDS;
-import digitalseraphim.hc.client.gui.GuiStethoscope;
+import digitalseraphim.hc.client.gui.GuiHorseScanner;
 import digitalseraphim.hc.core.helper.LogHelper;
-import digitalseraphim.hc.inventory.ContainerStethoscopeInventory;
-import digitalseraphim.hc.item.ItemStethoscope;
+import digitalseraphim.hc.inventory.ContainerHorseScannerInventory;
+import digitalseraphim.hc.item.ItemHorseScanner;
 
 
 public class CommonProxy implements IGuiHandler {
-	public ItemStethoscope stethoscope;
+	public ItemHorseScanner stethoscope;
 //	public ItemHorseHarness horseHarness;
 //	public ItemWheelbarrow wheelBarrow;
 //	
@@ -24,11 +24,11 @@ public class CommonProxy implements IGuiHandler {
 			int x, int y, int z) {
 		switch (ID) {
 
-		case GUI_IDS.STETHOSCOPE_ID:
+		case GUI_IDS.HORSESCANNER_ID:
 			Entity e = world.getEntityByID(x);
 
 			if (e instanceof EntityLivingBase) {
-				return new ContainerStethoscopeInventory(player, (EntityLivingBase) e);
+				return new ContainerHorseScannerInventory(player, (EntityLivingBase) e, player.getCurrentEquippedItem());
 			}
 		}
 
@@ -40,15 +40,15 @@ public class CommonProxy implements IGuiHandler {
 			int x, int y, int z) {
 
 		LogHelper.info("get client gui element " + ID);
-		LogHelper.info("stethoscope id = " + GUI_IDS.STETHOSCOPE_ID);
+		LogHelper.info("stethoscope id = " + GUI_IDS.HORSESCANNER_ID);
 		
 		switch (ID) {
 
-		case GUI_IDS.STETHOSCOPE_ID:
+		case GUI_IDS.HORSESCANNER_ID:
 			Entity e = world.getEntityByID(x);
 
 			if (e instanceof EntityLivingBase) {
-				return new GuiStethoscope(player, (EntityLivingBase) e);
+				return new GuiHorseScanner(player, (EntityLivingBase) e);
 			}
 		}
 
@@ -75,7 +75,7 @@ public class CommonProxy implements IGuiHandler {
 	public void initItems() {
 //		GameRegistry.registerItem(horseHarness = new ItemHorseHarness(),
 //				"hc.item.horseHarness");
-		GameRegistry.registerItem(stethoscope = new ItemStethoscope(), "hc.item.stethoscope");
+		GameRegistry.registerItem(stethoscope = new ItemHorseScanner(), "hc.item.stethoscope");
 //		GameRegistry.registerItem(wheelBarrow = new ItemWheelbarrow(), "hc.item.wheelbarrow");
 	}
 //

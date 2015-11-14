@@ -18,9 +18,9 @@ import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
 import digitalseraphim.hc.HorseCraft;
-import digitalseraphim.hc.inventory.ContainerStethoscopeInventory;
+import digitalseraphim.hc.inventory.ContainerHorseScannerInventory;
 
-public class GuiStethoscope extends GuiContainer {
+public class GuiHorseScanner extends GuiContainer {
 	protected static final ResourceLocation invBackground = new ResourceLocation(
 			"hc:textures/guis/hc_horse.png");
 	EntityPlayer player;
@@ -28,6 +28,7 @@ public class GuiStethoscope extends GuiContainer {
 	EntityLivingBase entityLiving;
 	int count = 1000;
 	int selectedTab = 0;
+	ItemStack horseScannerIS;
 
 	final int MAIN_WIDTH = 176;
 	final int TAB_WIDTH = 122;
@@ -41,8 +42,8 @@ public class GuiStethoscope extends GuiContainer {
 
 	static final int numTabs = 4;
 
-	public GuiStethoscope(EntityPlayer player, EntityLivingBase entity) {
-		super(new ContainerStethoscopeInventory(player, entity));
+	public GuiHorseScanner(EntityPlayer player, EntityLivingBase entity) {
+		super(new ContainerHorseScannerInventory(player, entity, player.getItemInUse()));
 		this.xSize = FULL_WIDTH;
 		this.ySize = FULL_HEIGHT;
 		this.player = player;

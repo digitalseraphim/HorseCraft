@@ -7,12 +7,12 @@ import net.minecraft.item.ItemStack;
 import digitalseraphim.hc.HorseCraft;
 import digitalseraphim.hc.client.gui.GUI_IDS;
 
-public class ItemStethoscope extends Item {
+public class ItemHorseScanner extends Item {
 
-	public ItemStethoscope() {
+	public ItemHorseScanner() {
 		this.maxStackSize = 8;
 		this.setCreativeTab(HorseCraft.tabsHC);
-		this.setUnlocalizedName("stethoscope");
+		this.setUnlocalizedName("horseScanner");
 	}
 
 	@Override
@@ -22,7 +22,7 @@ public class ItemStethoscope extends Item {
 		System.out.println("open gui ");
 //		(new Exception("")).printStackTrace();
 		if (player.worldObj.isRemote) {
-			player.openGui(HorseCraft.instance, GUI_IDS.STETHOSCOPE_ID,
+			player.openGui(HorseCraft.instance, GUI_IDS.HORSESCANNER_ID,
 					player.worldObj, living.getEntityId(), 0, 0);
 		}
 		return true;

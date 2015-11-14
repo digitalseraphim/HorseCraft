@@ -5,18 +5,20 @@ import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
 
-public class ContainerStethoscopeInventory extends Container {
+public class ContainerHorseScannerInventory extends Container {
 
 	EntityPlayer player;
 	EntityLivingBase entity;
+	ItemStack horseScannerIS;
 	
-	public ContainerStethoscopeInventory(EntityPlayer player,
-			EntityLivingBase entity) {
+	public ContainerHorseScannerInventory(EntityPlayer player,
+			EntityLivingBase entity, ItemStack horseScannerIS) {
 		super();
 		this.player = player;
 		this.entity = entity;
-		
+		this.horseScannerIS = horseScannerIS;
 	}
 
 	@Override
@@ -28,10 +30,11 @@ public class ContainerStethoscopeInventory extends Container {
 			EntityHorse horse = (EntityHorse) entity;
 			if(horse.isChested()){
 				IInventory inv = horse.horseChest;
-				
 			}
 		}
 		return true;
 	}
+
+	
 	
 }
