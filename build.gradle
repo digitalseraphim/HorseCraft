@@ -7,7 +7,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.0-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
     }
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
@@ -25,7 +25,7 @@ repositories {
     }
 */
     maven {
-        name 'CB Maven FS'
+        name 'codechicken'
         url "http://chickenbones.net/maven/"
     }
     maven {
@@ -48,16 +48,17 @@ configFile.withReader {
 }
 
 dependencies {
-    compile "codechicken:CodeChickenLib:${config.minecraft_version}-${config.CCLIB_version}:dev"
+   // compile "codechicken:CodeChickenLib:${config.minecraft_version}-${config.CCLIB_version}:dev"
+    compile "codechicken:CodeChickenCore:${config.minecraft_version}-${config.CCC_version}:dev"
 }
 
-version = "${config.minecraft_version}-${config.mod_version}"
+version = "${config.minecraft_version_long}-${config.mod_version}"
 group= "digitalseraphim.horsecraft" 
 archivesBaseName = "HorseCraft"
 
 
 minecraft {
-    version = "${config.minecraft_version}-${config.forge_version}"
+    version = "${config.minecraft_version_long}-${config.forge_version}"
     runDir = "run"
     mappings = "snapshot_20151112"
 }
