@@ -130,7 +130,7 @@ public class GuiHorseScanner extends GuiContainer {
 				str = (i == 0) ? "L" : "R";
 				break;
 			case 2:// stats
-				itemstack = new ItemStack(HorseCraft.proxy.stethoscope, 1, 0);
+				itemstack = new ItemStack(HorseCraft.proxy.horseScanner, 1, 0);
 				break;
 			case 3:// adv
 				itemstack = new ItemStack(Items.experience_bottle, 1, 0);

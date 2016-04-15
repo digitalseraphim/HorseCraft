@@ -1,5 +1,7 @@
 package digitalseraphim.hc;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -27,17 +29,18 @@ public class HorseCraft {
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event){
+		ModBlocks.init();
+//		proxy.initTileEntities();
+//		proxy.initEntities();
+//		proxy.replaceCreatureSpawn(EntityHorse.class, EntityHCHorse.class);
 	}
 	
 	@EventHandler
 	public void load(FMLInitializationEvent event) {
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
-		ModBlocks.init();
-//		proxy.initTileEntities();
-//		proxy.initRenderingAndTextures();
-//		proxy.initEntities();
 		proxy.initItems();
-//		proxy.replaceCreatureSpawn(EntityHorse.class, EntityHCHorse.class);
+		ModelResourceLocation res = new ModelResourceLocation("hc:horseScanner","inventory");
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(proxy.horseScanner, 0, res);
 	}
 
 	@EventHandler

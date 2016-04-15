@@ -1,6 +1,5 @@
 package digitalseraphim.hc.block;
 
-
 public class ModBlocks {
 //	public static BlockHorseWalker horseWalker;
 //	public static BlockFakeAir fakeAir;

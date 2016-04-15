@@ -14,10 +14,7 @@ import digitalseraphim.hc.item.ItemHorseScanner;
 
 
 public class CommonProxy implements IGuiHandler {
-	public ItemHorseScanner stethoscope;
-//	public ItemHorseHarness horseHarness;
-//	public ItemWheelbarrow wheelBarrow;
-//	
+	public ItemHorseScanner horseScanner;
 	
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world,
@@ -55,83 +52,8 @@ public class CommonProxy implements IGuiHandler {
 		
 		return null;
 	}
-//
-//	public void initTileEntities() {
-//		GameRegistry
-//				.registerTileEntity(TEHorseWalker.class, TEHorseWalker.NAME);
-//		GameRegistry.registerTileEntity(TESpokePath.class, TESpokePath.NAME);
-//	}
-//
-//	public void initEntities() {
-//		EntityRegistry.registerModEntity(EntityHorseHarness.class,
-//				"hc.horseHarness", 0, HorseCraft.instance, 60, 1, true);
-//		EntityRegistry.registerModEntity(EntityWheelbarrow.class,
-//				"hc.wheelbarrow", 1, HorseCraft.instance, 60, 1, true);
-//		EntityRegistry.registerGlobalEntityID(EntityHCHorse.class,
-//				"hc.hcHorse", EntityRegistry.findGlobalUniqueEntityId(),
-//				0x009999ff, 0x00ffff99);
-//	}
-//
-	public void initItems() {
-//		GameRegistry.registerItem(horseHarness = new ItemHorseHarness(),
-//				"hc.item.horseHarness");
-		GameRegistry.registerItem(stethoscope = new ItemHorseScanner(), "hc.item.stethoscope");
-//		GameRegistry.registerItem(wheelBarrow = new ItemWheelbarrow(), "hc.item.wheelbarrow");
-	}
-//
-//	public void initRenderingAndTextures() {
-//
-//	}
-//
-//	public void initEventHandlers() {
-//		if (ModBlocks.spokePath != null) {
-//			MinecraftForge.EVENT_BUS.register(ModBlocks.spokePath);
-//		}
-//	}
-//
-//	public void printMessageToPlayer(String msg) {
-//		System.out.println("tried to send message to client, but on server \""
-//				+ msg + "\"");
-//	}
-//
-//	public boolean isClient() {
-//		return FMLCommonHandler.instance().getEffectiveSide().isClient();
-//	}
-//
-//	public void replaceCreatureSpawn(Class<?> toReplace, Class<?> replaceWith) {
-//		String name = (String) EntityList.classToStringMapping.get(toReplace);
-//		Integer id = (Integer) EntityList.classToIDMapping.get(toReplace);
-//
-//		if (name == null || id == null) {
-//			System.out.println("Could not find " + toReplace.getCanonicalName()
-//					+ " to replace with " + replaceWith.getCanonicalName());
-//			return;
-//		}
-//
-//		EntityList.stringToClassMapping.put(name, replaceWith);
-//		EntityList.classToStringMapping.put(replaceWith, name);
-//		EntityList.classToStringMapping.remove(toReplace);
-//		EntityList.IDtoClassMapping.put(id, replaceWith);
-//		EntityList.classToIDMapping.put(replaceWith, id);
-//		EntityList.classToIDMapping.remove(toReplace);
-//
-//		for (BiomeGenBase bgb : BiomeGenBase.getBiomeGenArray()) {
-//			if (bgb != null) {
-//				List l = bgb.getSpawnableList(EnumCreatureType.creature);
-//				if (l != null) {
-//					for (Object o : l) {
-//						BiomeGenBase.SpawnListEntry sle = (BiomeGenBase.SpawnListEntry) o;
-//
-//						if (sle.entityClass.equals(toReplace)) {
-//							sle.entityClass = replaceWith;
-//						}
-//
-//					}
-//				}
-//			}
-//
-//		}
-//
-//	}
 
+	public void initItems() {
+		GameRegistry.registerItem(horseScanner = new ItemHorseScanner(), "horseScanner", "hc");
+	}
 }
