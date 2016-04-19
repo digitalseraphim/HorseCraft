@@ -13,17 +13,6 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.forge'
 
 repositories {
-/*
-    mavenCentral()
-    maven {
-        name = "forge"
-        url = "http://files.minecraftforge.net/maven"
-    }
-    maven {
-        name = "sonatype"
-        url = "https://oss.sonatype.org/content/repositories/snapshots/"
-    }
-*/
     maven {
         name 'codechicken'
         url "http://chickenbones.net/maven/"
@@ -48,8 +37,8 @@ configFile.withReader {
 }
 
 dependencies {
-   // compile "codechicken:CodeChickenLib:${config.minecraft_version}-${config.CCLIB_version}:dev"
-    compile "codechicken:CodeChickenCore:${config.minecraft_version}-${config.CCC_version}:dev"
+   compile "codechicken:CodeChickenLib:${config.minecraft_version}-${config.CCLIB_version}:deobf"
+    compile "codechicken:CodeChickenCore:${config.minecraft_version}-${config.CCC_version}:deobf"
 }
 
 version = "${config.minecraft_version_long}-${config.mod_version}"
@@ -58,9 +47,9 @@ archivesBaseName = "HorseCraft"
 
 
 minecraft {
-    version = "${config.minecraft_version_long}-${config.forge_version}"
+    version = "${config.minecraft_version}-${config.forge_version}-${config.minecraft_version}"
     runDir = "run"
-    mappings = "snapshot_20151112"
+    mappings = "snapshot_20160418"
 }
 
 processResources

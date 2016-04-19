@@ -33,7 +33,7 @@ public class EntityHCHorse extends EntityHorse {
 
 	public EntityHCHorse(World p_i1685_1_, EntityHorse copyMe) {
 		this(p_i1685_1_);
-		copyDataFromOld(copyMe);
+		copyLocationAndAnglesFrom(copyMe);
 	}
 
 	@Override

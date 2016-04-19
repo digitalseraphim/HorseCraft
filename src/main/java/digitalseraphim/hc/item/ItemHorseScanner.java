@@ -1,29 +1,25 @@
 package digitalseraphim.hc.item;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import digitalseraphim.hc.HorseCraft;
 import digitalseraphim.hc.client.gui.GUI_IDS;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumHand;
 
-public class ItemHorseScanner extends Item {
+public class ItemHorseScanner extends ItemHCBase {
 
 	public ItemHorseScanner() {
-		this.maxStackSize = 8;
-		this.setCreativeTab(HorseCraft.tabsHC);
-		this.setUnlocalizedName("horseScanner");
+		super(8,"horseScanner");
 	}
-
+	
 	@Override
-	public boolean itemInteractionForEntity(ItemStack itemStack,
-			EntityPlayer player, EntityLivingBase living) {
+	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target,
+			EnumHand hand) {
 
-		System.out.println("open gui ");
-//		(new Exception("")).printStackTrace();
-		if (player.worldObj.isRemote) {
-			player.openGui(HorseCraft.instance, GUI_IDS.HORSESCANNER_ID,
-					player.worldObj, living.getEntityId(), 0, 0);
+		if (playerIn.worldObj.isRemote) {
+			playerIn.openGui(HorseCraft.instance, GUI_IDS.HORSESCANNER_ID,
+					playerIn.worldObj, target.getEntityId(), 0, 0);
 		}
 		return true;
 	}

@@ -10,9 +10,6 @@ public class ModBlocks {
 //		horseWalker = new BlockHorseWalker();
 //		fakeAir = new BlockFakeAir();
 //		spokePath = new BlockSpokePath();
-//		horseWalker = null;
-//		fakeAir = null;
-//		spokePath = null;
 //		hayPile = new BlockHayPile();
 		
 //		GameRegistry.registerBlock(horseWalker, BlockHorseWalker.NAME);

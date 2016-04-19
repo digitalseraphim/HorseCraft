@@ -17,7 +17,7 @@ public class CreativeTabHC extends CreativeTabs {
      * the itemID for the item to be displayed on the tab
      */
     public Item getTabIconItem() {
-        return Item.getItemFromBlock(Blocks.hay_block);
+        return Item.getItemFromBlock(Blocks.HAY_BLOCK);
     }
 
 }

@@ -43,7 +43,7 @@ public class GuiHorseScanner extends GuiContainer {
 	static final int numTabs = 4;
 
 	public GuiHorseScanner(EntityPlayer player, EntityLivingBase entity) {
-		super(new ContainerHorseScannerInventory(player, entity, player.getItemInUse()));
+		super(new ContainerHorseScannerInventory(player, entity, player.getActiveItemStack()));
 		this.xSize = FULL_WIDTH;
 		this.ySize = FULL_HEIGHT;
 		this.player = player;
@@ -125,7 +125,7 @@ public class GuiHorseScanner extends GuiContainer {
 			switch (i) {
 			case 0:// inv
 			case 1:
-				itemstack = new ItemStack(Item.getItemFromBlock(Blocks.chest),
+				itemstack = new ItemStack(Item.getItemFromBlock(Blocks.CHEST),
 						1, 0);
 				str = (i == 0) ? "L" : "R";
 				break;
@@ -133,7 +133,7 @@ public class GuiHorseScanner extends GuiContainer {
 				itemstack = new ItemStack(HorseCraft.proxy.horseScanner, 1, 0);
 				break;
 			case 3:// adv
-				itemstack = new ItemStack(Items.experience_bottle, 1, 0);
+				itemstack = new ItemStack(Items.EXPERIENCE_BOTTLE, 1, 0);
 				break;
 			}
 
